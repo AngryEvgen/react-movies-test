@@ -12,14 +12,19 @@ class Main extends Component {
   };
 
   getData = async (str = 'halloween', type = 'all') => {
-    let res = await fetch(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${
-        type !== 'all' ? `&type=${type}` : ''
-      }`
-    );
-    let data = await res.json();
+    try {
+      let res = await fetch(
+        `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${
+          type !== 'all' ? `&type=${type}` : ''
+        }`
+      );
+      let data = await res.json();
 
-    this.setState({ movies: data.Search, isLoaded: true });
+      this.setState({ movies: data.Search, isLoaded: true });
+    } catch (error) {
+      console.log(error);
+      this.setState({ isLoaded: false });
+    }
   };
 
   componentDidMount() {
