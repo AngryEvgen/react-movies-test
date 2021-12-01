@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Technologies
 
--React
--JS
--CSS
--Materialize CSS
--CSS Grid Layout
+- React
+- JS
+- CSS
+- Materialize CSS
+- CSS Grid Layout
