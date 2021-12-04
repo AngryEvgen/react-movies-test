@@ -6,7 +6,10 @@ function Footer() {
       <div className='footer-copyright'>
         <div className='container'>
           © {YEAR} Copyright Text
-          <a className='grey-text text-lighten-4 right' href='#!'>
+          <a
+            className='grey-text text-lighten-4 right'
+            href='https://github.com/AngryEvgen'
+          >
             GitHub
           </a>
         </div>
