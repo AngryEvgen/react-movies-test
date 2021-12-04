@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Movies from '../components/Movies';
 import Preloader from '../components/Preloader';
 import Search from '../components/Search';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-class Main extends Component {
-  state = {
-    movies: [],
-    isLoaded: false,
-  };
+function Main() {
+  const [movies, setMovies] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  getData = async (str = 'halloween', type = 'all') => {
+  const getData = async (str = 'halloween', type = 'all') => {
     try {
       let res = await fetch(
         `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${
@@ -20,26 +18,24 @@ class Main extends Component {
       );
       let data = await res.json();
 
-      this.setState({ movies: data.Search, isLoaded: true });
+      setMovies(data.Search);
+      setIsLoaded(true);
     } catch (error) {
       console.log(error);
-      this.setState({ isLoaded: false });
+      setIsLoaded(false);
     }
   };
 
-  componentDidMount() {
-    this.getData();
-  }
+  useEffect(() => {
+    getData();
+  }, []);
 
-  render() {
-    const { movies, isLoaded } = this.state;
-    return (
-      <main className='container content'>
-        <Search filterByMovies={this.getData} />
-        {isLoaded ? <Movies movies={movies} /> : <Preloader />}
-      </main>
-    );
-  }
+  return (
+    <main className='container content'>
+      <Search filterByMovies={getData} />
+      {isLoaded ? <Movies movies={movies} /> : <Preloader />}
+    </main>
+  );
 }
 
 export default Main;
